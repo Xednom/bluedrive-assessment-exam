@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p class="text-muted">By {{ post.author }} on {{ post.published_date|date:"F j, Y" }}</p>
+<div class="mb-4">
+    <p>{{ post.content }}</p>
+</div>
+
+<h3>Comments</h3>
+<div class="list-group mb-4">
+    {% for comment in comments %}
+    <div class="list-group-item">
+        <strong>{{ comment.post.author }}</strong> on {{ comment.created_at|date:"F j, Y, g:i a" }}
+        <blockquote>{{ comment.content }}</blockquote>
+    </div>
+    {% empty %}
+    <p class="text-muted">No comments yet.</p>
+    {% endfor %}
+</div>
+
+<h3>Add a Comment</h3>
+<form method="post" action="{% url 'api:comment_create'  post.pk %}">
+    {% csrf_token %}
+    {% load crispy_forms_tags %}
+    {{ form.as_p|crispy }}
+    <button type="submit" class="btn btn-primary">Submit Comment</button>
+</form>
+{% endblock %}

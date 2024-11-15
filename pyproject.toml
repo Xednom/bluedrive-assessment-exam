@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "Bluedrive Assessment Exam"
+version = "0.1.0"
+description = "Bluedrive Assessment backend project"
+authors = ["Xednom <monde.lacanlalay@gmail.com>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = "==4.2"
+djangorestframework = "*"
+django-environ = "*"
+django-split-settings = "*"
+django-money = "*"
+django-cors-headers = "*"
+django-post-office = "*"
+django-filter = "*"
+pytest-django = "*"
+pytest-factoryboy = "*"
+psycopg2-binary = "^2.9.9"
+crispy-bootstrap5 = "^2024.10"
+django-crispy-forms = "^2.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

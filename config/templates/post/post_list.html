@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Post List{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Published Posts</h1>
+<div class="list-group">
+    {% for post in posts %}
+    <a href="{% url 'api:post_detail' post.pk %}" class="list-group-item list-group-item-action">
+        <h5 class="mb-1">{{ post.title }}</h5>
+        <p>{{ post.content }}</p>
+        <p class="mb-1">By {{ post.author }} on {{ post.published_date|date:"F j, Y" }}</p>
+    </a>
+    {% empty %}
+    <p class="text-muted">No published posts available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

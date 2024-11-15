@@ -1,6 +1,6 @@
 from rest_framework import serializers, permissions, status
 from rest_framework.response import Response
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
 
 from django_filters import rest_framework as filters
 from django_filters.rest_framework import DjangoFilterBackend
@@ -26,7 +26,7 @@ class PostCommentSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author_name = serializers.CharField(source="author.name", read_only=True)
-    comment_set = PostCommentSerializer(many=True)
+    comment_set = PostCommentSerializer(many=True, required=False, allow_null=True)
 
     class Meta:
         model = Post
@@ -35,6 +35,7 @@ class PostSerializer(serializers.ModelSerializer):
             "title",
             "content",
             "published_date",
+            "author",
             "author_name",
             "comment_set",
         ]
@@ -51,3 +52,8 @@ class PostDetailView(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     lookup_field = "id"
+
+
+class PostCreateView(CreateAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()

@@ -18,11 +18,10 @@ class PostFilter(filters.FilterSet):
 
 
 class PostCommentSerializer(serializers.ModelSerializer):
-    commenter = serializers.CharField(source="post.author.name", read_only=True)
 
     class Meta:
         model = Comment
-        fields = ["commenter", "content", "created_at"]
+        fields = ["content", "created_at"]
 
 
 class PostSerializer(serializers.ModelSerializer):
